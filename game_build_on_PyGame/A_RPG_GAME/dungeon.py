@@ -137,7 +137,7 @@ class Dungeon(object):
         pathx = src.x + src.width
         pathy = src.y + random.randint(1, src.height - 2)
         self.set_image_at(pathx, pathy, hall)
-        if pathy > dst.y and pathy < dst.y + dst.height:
+        if dst.y < pathy < dst.y + dst.height:
             while pathx < dst.x:
                 pathx += 1
                 self.set_image_at(pathx, pathy, hall)

@@ -73,7 +73,7 @@ def player_collision(step_x, step_y):
             player.gold += 1
             message("You discarded a worthless" + name + ".")
         dungeon.set_image_at(player.x + step_x, player.y + step_y, room_image)
-    elif image == 64:
+    elif image == armor_image:
         armor = random.randint(1, level + 2)
         # low levels get crappy stuff
         if level <= 5:
