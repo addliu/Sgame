@@ -16,9 +16,9 @@ pos_x = 4
 pos_y = 8
 size_min = 5
 size_max = 14
-# room width frame
+# room width size
 room_width = row_frame // 4
-# room height frame
+# room height size
 room_height = columns_frame // 2
 
 empty_image = 175
