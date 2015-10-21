@@ -7,23 +7,24 @@ import pygame
 from pygame.locals import *
 from mylibrary import *
 
-frame_width = 8
-frame_height = 12
-columns = 32
-row_frame = 80
-columns_frame = 45
-pos_x = 4
-pos_y = 8
-size_min = 5
-size_max = 14
+frame_width = 16
+frame_height = 16
+columns = 16
+row_frame = 50
+columns_frame = 38
+pos_x = 1
+pos_y = 2
+size_min = 6
+size_max = 9
 # room width size
 room_width = row_frame // 4
 # room height size
 room_height = columns_frame // 2
 
-empty_image = 175
-room_image = 218
-hall_image = 177
+empty_image = 192
+room_image = 96
+hall_image = 96
+# ------------ behind arguments has changed
 entry_image = 29
 exit_image = 30
 gold_image = 70
@@ -39,6 +40,9 @@ class Dungeon(object):
         # create the font sprite
         self.sprite = MySprite()
         self.sprite.load("ascii8x12.png", frame_width, frame_height, columns)
+
+        self.dun = MySprite()
+        self.dun.load("dun_16.png", frame_width, frame_height, columns)
 
         # create the level list
         self.tiles = list()
@@ -135,7 +139,7 @@ class Dungeon(object):
 
     def createHallRight(self, src, dst, hall):
         pathx = src.x + src.width
-        pathy = src.y + random.randint(1, src.height - 2)
+        pathy = src.y + random.randint(1, src.height )
         self.set_image_at(pathx, pathy, hall)
         if dst.y < pathy < dst.y + dst.height:
             while pathx < dst.x:
@@ -157,7 +161,7 @@ class Dungeon(object):
                     self.set_image_at(pathx, pathy, hall)
 
     def createHallDown(self, src, dst, hall_image):
-        pathx = src.x + random.randint(1, src.width - 2)
+        pathx = src.x + random.randint(1, src.width )
         pathy = src.y + src.height
         self.set_image_at(pathx, pathy, hall_image)
         if dst.x < pathx < dst.x + dst.width:
@@ -204,7 +208,7 @@ class Dungeon(object):
             for x in range(0, row_frame):
                 image = self.get_image_at(x, y)
                 if 0 <= image <= columns_frame * row_frame:
-                    self.draw_image(surface, self.sprite, x, y, image)
+                    self.draw_image(surface, self.dun, x, y, image)
                 else:
                     pass  # empty tile
 

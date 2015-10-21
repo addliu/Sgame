@@ -11,8 +11,8 @@ from mylibrary import *
 from dungeon import *
 from player import *
 
-screen_width = 700
-screen_height = 650
+screen_width = 800
+screen_height = 608
 
 
 def game_init():
@@ -246,7 +246,7 @@ def event_section():
 game_init()
 game_over = False
 last_time = 0
-dungeon = Dungeon(30, 30)
+dungeon = Dungeon(0, 0)
 dungeon.generate(empty_image, room_image, hall_image)
 player = Player(dungeon, 1, "Player")
 player.x = dungeon.entrance_x + 1
