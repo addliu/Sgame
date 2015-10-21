@@ -64,8 +64,8 @@ class Dungeon(object):
         SL = size_min
         SH = size_max
         self.rooms = list()
-        for i in range(0, 4):
-            for j in range(0, 2):
+        for j in range(0, 2):
+            for i in range(0, 4):
                 self.createRoom(i * room_width, j * room_height, PL, PH, SL, SH)
 
         # connect the rooms with halls
@@ -204,7 +204,7 @@ class Dungeon(object):
             for x in range(0, row_frame):
                 image = self.get_image_at(x, y)
                 if 0 <= image <= columns_frame * row_frame:
-                    self.draw_image(surface, x, y, image)
+                    self.draw_image(surface, self.sprite, x, y, image)
                 else:
                     pass  # empty tile
 
@@ -228,13 +228,20 @@ class Dungeon(object):
                 if image >= 0 and image <= columns_frame * row_frame:
                     self.draw_image(surface, x, y, image)
 
-    def draw_image(self, surface, tilex, tiley, image):
-        self.sprite.X = self.offset_x + tilex * frame_width
-        self.sprite.Y = self.offset_y + tiley * frame_height
-        self.sprite.frame = image
-        self.sprite.last_frame = image
-        self.sprite.update(0)
-        self.sprite.draw(surface)
+    # def draw_image(self, surface, tilex, tiley, image):
+    #     self.sprite.X = self.offset_x + tilex * frame_width
+    #     self.sprite.Y = self.offset_y + tiley * frame_height
+    #     self.sprite.frame = image
+    #     self.sprite.last_frame = image
+    #     self.sprite.update(0)
+    #     self.sprite.draw(surface)
+    def draw_image(self, surface, sprite, tilex, tiley, image):
+        sprite.X = self.offset_x + tilex * frame_width
+        sprite.Y = self.offset_y + tiley * frame_height
+        sprite.frame = image
+        sprite.last_frame = image
+        sprite.update(0)
+        sprite.draw(surface)
 
 
 __author__ = 'liuchuang'

@@ -61,7 +61,7 @@ class Player(object):
         self.health = self.max_health
 
     def draw(self, surface, image):
-        self.dungeon.draw_image(surface, self.x, self.y, image)
+        self.dungeon.draw_image(surface, self.dungeon.sprite, self.x, self.y, image)
 
     # 移动玩家角色
     def move(self, movex, movey):
