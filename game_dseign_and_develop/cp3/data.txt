@@ -1,0 +1,7 @@
+Sample file writing
+This is line 2
+Chapter 3 
+Sample file writing
+This is line 5
+The six line looks like this
+Edit the file with any text editor
