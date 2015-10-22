@@ -191,6 +191,7 @@ def move_monsters(x, y, image):
         # delete old  position
         dungeon.set_image_at(x, y, room_image)
         dungeon.set_image_at(x + movex, y + movey, image)
+        monster.draw(back_buffer, monster_image)
 
 
 def print_stats():
@@ -280,7 +281,6 @@ while True:
     # draw the player's little dude
     player.draw(back_buffer, player_image)
 
-    monster.draw(back_buffer, monster_image)
     # draw the back buffer
     screen.blit(back_buffer, (0, 0))
 

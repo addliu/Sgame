@@ -13,9 +13,9 @@ columns = 16
 row_frame = 50
 columns_frame = 38
 pos_x = 1
-pos_y = 2
-size_min = 6
-size_max = 9
+pos_y = 5
+size_min = 4
+size_max = 11
 # room width size
 room_width = row_frame // 4
 # room height size
@@ -38,11 +38,9 @@ monster_image = 0
 class Dungeon(object):
     def __init__(self, offset_x, offset_y):
         # create the font sprite
-        self.sprite = MySprite()
-        self.sprite.load("ascii8x12.png", frame_width, frame_height, columns)
 
         self.dun = MySprite()
-        self.dun.load("dun_16.png", frame_width, frame_height, columns)
+        self.dun.load(r"GAME_ARGUMENTS/dun_16.png", frame_width, frame_height, columns)
 
         # create the level list
         self.tiles = list()
@@ -139,7 +137,7 @@ class Dungeon(object):
 
     def createHallRight(self, src, dst, hall):
         pathx = src.x + src.width
-        pathy = src.y + random.randint(1, src.height )
+        pathy = src.y + random.randint(1, src.height - 1)
         self.set_image_at(pathx, pathy, hall)
         if dst.y < pathy < dst.y + dst.height:
             while pathx < dst.x:
@@ -161,7 +159,7 @@ class Dungeon(object):
                     self.set_image_at(pathx, pathy, hall)
 
     def createHallDown(self, src, dst, hall_image):
-        pathx = src.x + random.randint(1, src.width )
+        pathx = src.x + random.randint(1, src.width - 1)
         pathy = src.y + src.height
         self.set_image_at(pathx, pathy, hall_image)
         if dst.x < pathx < dst.x + dst.width:
@@ -232,13 +230,6 @@ class Dungeon(object):
                 if image >= 0 and image <= columns_frame * row_frame:
                     self.draw_image(surface, x, y, image)
 
-    # def draw_image(self, surface, tilex, tiley, image):
-    #     self.sprite.X = self.offset_x + tilex * frame_width
-    #     self.sprite.Y = self.offset_y + tiley * frame_height
-    #     self.sprite.frame = image
-    #     self.sprite.last_frame = image
-    #     self.sprite.update(0)
-    #     self.sprite.draw(surface)
     def draw_image(self, surface, sprite, tilex, tiley, image):
         sprite.X = self.offset_x + tilex * frame_width
         sprite.Y = self.offset_y + tiley * frame_height
