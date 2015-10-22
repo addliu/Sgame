@@ -117,7 +117,6 @@ def player_collision(step_x, step_y):
 
 def attack_monster(x, y, image):
     global dungeon
-    monster = Monster(dungeon, level, "Grue")
 
     # player's attack
     defense = monster.get_defense()
@@ -249,6 +248,7 @@ last_time = 0
 dungeon = Dungeon(0, 0)
 dungeon.generate(empty_image, room_image, hall_image)
 player = Player(dungeon, 1, "Player")
+monster = Monster(dungeon, 1, "Grue")
 player.x = dungeon.entrance_x + 1
 player.y = dungeon.entrance_y + 1
 level = 1
@@ -279,6 +279,8 @@ while True:
 
     # draw the player's little dude
     player.draw(back_buffer, player_image)
+
+    monster.draw(back_buffer, monster_image)
     # draw the back buffer
     screen.blit(back_buffer, (0, 0))
 

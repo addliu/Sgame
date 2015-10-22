@@ -32,6 +32,8 @@ class Player(object):
         self.armor = level
         self.armor_name = "Rags"
         self.roll()
+        self.sprite = MySprite()
+        self.sprite.load(r"GAME_ARGUMENTS/player.png", frame_width, frame_height, 12)
 
     # 随机设置玩家初始能力值
     def roll(self):
@@ -61,7 +63,7 @@ class Player(object):
         self.health = self.max_health
 
     def draw(self, surface, image):
-        self.dungeon.draw_image(surface, self.dungeon.dun, self.x, self.y, image)
+        self.dungeon.draw_image(surface, self.sprite, self.x, self.y, image)
 
     # 移动玩家角色
     def move(self, movex, movey):
@@ -122,6 +124,10 @@ class Monster(Player):
         self.gold = random.randint(1, 4) * level
         self.strength = 1 + Die(6) + Die(6)
         self.dexterous = 1 + Die(6) + Die(6)
+        self.sprite = MySprite()
+        self.sprite.load(r"GAME_ARGUMENTS/robot.png", frame_width, frame_height, 12)
 
+    def draw(self, surface, image):
+        self.dungeon.draw_image(surface, self.sprite, self.x, self.y, image)
 
 __author__ = 'liuchuang'

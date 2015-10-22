@@ -32,7 +32,7 @@ weapon_image = 86
 armor_image = 64
 health_image = 71
 player_image = 0
-monster_image = 20
+monster_image = 0
 
 
 class Dungeon(object):
