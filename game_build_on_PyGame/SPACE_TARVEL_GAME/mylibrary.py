@@ -1,8 +1,15 @@
 # coding:utf8
 """
-该文件含有两个类，gameSprite 是游戏精灵类，Point为向量类
+mylibrary.py
+该文件主要为以后开发带来便利
+含有两个类，gameSprite 是游戏精灵类，Point为向量类
 gameSprite 主要负责完成游戏中精灵的更新以及动画效果
 Point类可以控制精灵的速度大小以及方向
+含有四个方法：
+wrap_angle(angle): 将角度控制在０～３６０之间
+angular_velocity(angle): 根据角度不同来设置速度大小和方向
+target_angle(x1, y1, x2, y2): 算出两点相对于原点之间的角度
+print_text(font, x, y, text, color): 将字体打印到屏幕上的相应位置
 """
 import pygame
 import sys
@@ -16,6 +23,7 @@ gameSprite类:
 __init__(self): 初始化精灵
 load(self, filename, width, height, columns): 为游戏精灵添加位图
 update(self, current_time, rate): 更新游戏精灵的帧图像
+draw(self, surface): 该方法需精灵组调用，将该组中的精灵全部绘制在surface上
 _getx(self): 获取精灵x坐标
 _setx(self, value): 设置精灵x坐标
 X: 设置，获取精灵的x坐标
@@ -80,6 +88,9 @@ class gameSprite(pygame.sprite.Sprite):
             # 记录当前游戏帧图像
             self.old_frame = self.frame
 
+    def draw(self, surface):
+        surface.blit(self.image, (self.X, self.Y))
+
     def _getx(self):
         return  self.rect.x
 
@@ -104,12 +115,50 @@ class gameSprite(pygame.sprite.Sprite):
 Point类：
 __init__(self): 初始化
 __str__(self): 按照规定输出Point信息
+_getx(self): 获得ｘ
+_setx(self, value):　设置ｘ
+x: 获得，设置ｘ
+_gety(self):获得ｙ
+_sety(self, value):设置ｙ
+y: 获得，　设置ｙ
 """
 class Point(object):
     def __init__(self):
         self.x = 0
         self.y = 0
 
+    def _setx(self, value):
+        self.x = value
+    def _getx(self):
+        return self.x
+    x = property(_getx, _setx)
+
+    def _gety(self):
+        return self.y
+    def _sety(self, value):
+        self.y = value
+    y = property(_gety, _sety)
+
     def __str__(self):
         return "X: " + str(self.x) + ", Y: " + str(self.y)
-__author__ = 'liuchuang'
+
+def warp_angle(angle):
+    return angle % 360
+
+def angular_velocity(angle):
+    vel = Point(0.0, 0.0)
+    vel.x = math.cos(math.radians(warp_angle(angle)))
+    vel.y = math.sin(math.radians(warp_angle(angle)))
+    return vel
+
+def target_angle(x1, y1, x2, y2):
+    delta_x = x2 - x1
+    delta_y = y2 - y1
+    angle_radians = math.atan2(delta_y, delta_x)
+    angle_degrees = math.degrees(angle_radians)
+    return angle_degrees
+
+def print_text(font, x, y, text, color=(255, 255, 255)):
+    text_image = font.render(text, True, color)
+    screen = pygame.display.get_surface()
+    screen.blit(text_image, (x, y))
