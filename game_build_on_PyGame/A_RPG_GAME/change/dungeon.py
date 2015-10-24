@@ -40,7 +40,7 @@ class Dungeon(object):
         # create the font sprite
 
         self.dun = MySprite()
-        self.dun.load(r"GAME_ARGUMENTS/dun_16.png", frame_width, frame_height, columns)
+        self.dun.load(r"dun_16.png", frame_width, frame_height, columns)
 
         # create the level list
         self.tiles = list()
