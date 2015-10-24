@@ -23,7 +23,7 @@ _gety(self): 获取精灵的y坐标
 _ sety(self, value): 设置精灵的y坐标
 Y: 设置，获取精灵的y坐标
 _getpos(self): 获取精灵的位置值
-_setpos(self, topleft): 设置精灵的位置值
+_setpos(self, pos): 设置精灵的位置值
 position: 设置， 获取精灵的位置值
 """
 class gameSprite(pygame.sprite.Sprite):
