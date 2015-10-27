@@ -1,3 +1,4 @@
+# coding:utf8
 import sys
 import time
 import random
@@ -6,14 +7,14 @@ import math
 from pygame.locals import *
 
 
-# prints text using supplied font
+# 使用提供的字体在屏幕上打印文字
 def print_text(font, x, y, text, color=(255, 255, 255)):
     imgText = font.render(text, True, color)
     screen = pygame.display.get_surface()
     screen.blit(imgText, (x, y))
 
 
-# MySprite class extends pygame.sprite.Sprite
+# MySprite 类 继承 pygame.sprite.Sprite
 class MySprite(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -29,7 +30,7 @@ class MySprite(pygame.sprite.Sprite):
         self.direction = 0
         self.velocity = Point(0, 0)
 
-    # X property
+    # X 属性
     def _getx(self):
         return self.rect.x
 
@@ -38,7 +39,7 @@ class MySprite(pygame.sprite.Sprite):
 
     X = property(_getx, _setx)
 
-    # Y property
+    # Y 属性
     def _gety(self):
         return self.rect.y
 
@@ -47,7 +48,7 @@ class MySprite(pygame.sprite.Sprite):
 
     Y = property(_gety, _sety)
 
-    # position property
+    # 位置属性
     def _getpos(self):
         return self.rect.topleft
 
@@ -56,10 +57,12 @@ class MySprite(pygame.sprite.Sprite):
 
     position = property(_getpos, _setpos)
 
+    # 从文件中读取精灵的图像
     def load(self, filename, width=0, height=0, columns=1):
         self.monster_image = pygame.image.load(filename).convert_alpha()
         self.set_image(self.monster_image, width, height, columns)
 
+    # 设置精灵的属性
     def set_image(self, image, width=0, height=0, columns=1):
         self.monster_image = image
         if width == 0 and height == 0:
@@ -73,9 +76,10 @@ class MySprite(pygame.sprite.Sprite):
         self.rect = Rect(0, 0, self.frame_width, self.frame_height)
         self.columns = columns
 
+    # 更新精灵动画
     def update(self, current_time, rate=30):
         if self.last_frame > self.first_frame:
-            # update animation frame number
+            # 更新动画帧
             if current_time > self.last_time + rate:
                 self.frame += 1
                 if self.frame > self.last_frame:
@@ -84,7 +88,7 @@ class MySprite(pygame.sprite.Sprite):
         else:
             self.frame = self.first_frame
 
-        # build current frame only if it changed
+        # 仅在当前帧改变时更新帧
         if self.frame != self.old_frame:
             frame_x = (self.frame % self.columns) * self.frame_width
             frame_y = (self.frame // self.columns) * self.frame_height
@@ -99,20 +103,20 @@ class MySprite(pygame.sprite.Sprite):
                str(self.rect)
 
 
-# Point class extends object
+# Point 类继承 object
 class Point(object):
     def __init__(self, x, y):
         self.__x = x
         self.__y = y
 
-    # X property
+    # X 属性
     def getx(self): return self.__x
 
     def setx(self, value): self.__x = value
 
     x = property(getx, setx)
 
-    # Y property
+    # Y 属性
     def gety(self): return self.__y
 
     def sety(self, value): self.__y = value

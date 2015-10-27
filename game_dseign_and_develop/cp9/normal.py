@@ -1,3 +1,4 @@
+# coding:utf8
 import sys
 import time
 import random
@@ -6,6 +7,7 @@ import pygame
 from pygame.locals import *
 from mylibrary import *
 
+# 关卡信息
 levels = (
     (1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
      1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -53,7 +55,7 @@ levels = (
 )
 
 
-# this function increments the level
+# 进入下一关
 def goto_next_level():
     global level, levels
     level += 1
@@ -62,7 +64,7 @@ def goto_next_level():
     load_level()
 
 
-# this function updates the blocks in play
+# 更新砖块UI
 def update_block():
     global block_group, waiting
     if len(block_group) == 0:
@@ -71,11 +73,12 @@ def update_block():
     block_group.update(ticks, 50)
 
 
-# this function sets up the blocks for the levels
+# 设置新关卡的UI
 def load_level():
     global level, block_image, block_group, levels, block
     block_image = pygame.image.load(r"image/blocks.png").convert_alpha()
-    block_group.empty()  # reset block group
+    # 重置砖块精灵组
+    block_group.empty()
     for bx in range(0, 12):
         for by in range(0, 10):
             block = MySprite()
@@ -83,18 +86,19 @@ def load_level():
             x = 40 + bx * (block.frame_width + 1)
             y = 60 + by * (block.frame_height + 1)
             block.position = x, y
-            # read blocks from levels data
+            # 从关卡信息中读取砖块信息
             num = levels[level][by*12+bx]
-            # give blocks differently color
+            # 为砖块设置不同的颜色
             if num is not 0:
                 num = random.randint(1, 8)
             block.first_frame = num - 1
             block.last_frame = num - 1
-            if num > 0:  # 0 is blank
+            # num = 0的位置不设置砖块
+            if num > 0:
                 block_group.add(block)
 
 
-# this function initializes the game
+# 初始化游戏参数
 def game_init():
     global screen, font, timer
     global paddle_group, block_group, ball_group
@@ -107,25 +111,25 @@ def game_init():
     pygame.mouse.set_visible(False)
     timer = pygame.time.Clock()
 
-    # create sprite group
+    # 创建游戏精灵组
     paddle_group = pygame.sprite.Group()
     block_group = pygame.sprite.Group()
     ball_group = pygame.sprite.Group()
 
-    # create the paddle sprite
+    # 创建挡板精灵
     paddle = MySprite()
     paddle.load(r"image/paddle.png")
     paddle.position = 400, 540
     paddle_group.add(paddle)
 
-    # create the ball sprite
+    # 创建球精灵
     ball = MySprite()
     ball.load(r"image/ball.png")
     ball.position = 400, 300
     ball_group.add(ball)
 
 
-# this function moves the paddle
+# 移动挡板
 def move_paddle():
     global movex, movey, keys, waiting
     paddle_group.update(ticks, 50)
@@ -151,15 +155,15 @@ def move_paddle():
         paddle.X = 710
 
 
-# this function reset the ball's velocity
+# 重置球的速度以及位置
 def reset_ball():
     ball.velocity = Point(4.5, -7.0)
 
 
-# this function moves the ball
+# 移动球
 def move_ball():
     global waiting, ball, game_over, lives
-    # move the ball
+    # 移动球
     ball_group.update(ticks, 50)
     if waiting:
         ball.X = paddle.X + 40
@@ -175,27 +179,27 @@ def move_ball():
     elif ball.Y < 0:
         ball.Y = 0
         ball.velocity.y *= -1
-    elif ball.Y > 580:  # missed paddle
+    elif ball.Y > 580:  # 挡板没有接住球
         waiting = True
         lives -= 1
         if lives < 1:
             game_over = True
 
 
-# this function test for collision between ball and paddle, you can also set ball's velocity
+# 处理挡板与球的碰撞
 def collision_ball_paddle():
     if pygame.sprite.collide_rect(ball, paddle):
         play_sound(coinflip)
         ball.velocity.y = -abs(ball.velocity.y)
         bx = ball.X + 8
         px = paddle.X + paddle.frame_width/2
-        if bx < px:  # left side of paddle?
+        if bx < px:  # 球落在挡板左半部分
             ball.velocity.x = -abs(ball.velocity.x) - 0.1
-        else:  # right side of paddle?
+        else:  # 球落在挡板右半部分
             ball.velocity.x = abs(ball.velocity.x) + 0.1
 
 
-# this function tests for collision between ball and blocks
+# 处理球与砖块碰撞
 def collision_ball_blocks():
     global score, block_group, ball
     hit_block = pygame.sprite.spritecollideany(ball, block_group)
@@ -206,27 +210,27 @@ def collision_ball_blocks():
         bx = ball.X + 8
         by = ball.Y + 8
 
-        # hit middle of block from above or below?
+        # 球从上面还是下面击中砖块
         if hit_block.X + 5 < bx < hit_block.X + hit_block.frame_width - 5:
-            if by < hit_block.Y + hit_block.frame_height/2:  # above?
+            if by < hit_block.Y + hit_block.frame_height/2:  # 球击中砖块上方
                 ball.velocity.y = -abs(ball.velocity.y)
-            else:  # below?
+            else:  # 球击中砖块下方
                 ball.velocity.y = abs(ball.velocity.y)
 
-        # hit left side of block?
+        # 球击中砖块左边
         elif bx < hit_block.X + 5:
             ball.velocity.x = -abs(ball.velocity.x)
 
-        # hit right side of block?
+        # 球击中砖块右边
         elif bx > hit_block.X + hit_block.frame_width - 5:
             ball.velocity.x = abs(ball.velocity.x)
 
-        # handle any other situation
+        # 球击中砖块别的位置
         else:
             ball.velocity.y *= -1
 
 
-# this function initializes sound
+# 初始化游戏声音
 def audio_init():
     global coinflip, hit, bgm
     pygame.mixer.init()
@@ -235,14 +239,14 @@ def audio_init():
     bgm = pygame.mixer.Sound(r"auido/flowerdance.ogg")
 
 
-# this function play the sound
+# 播放音乐
 def play_sound(sound):
     channel = pygame.mixer.find_channel(True)
     channel.set_volume(0.5)
     channel.play(sound)
 
 
-# this function change the background color
+# 改变背景颜色
 def change_color(alpha):
     global vel_0, vel_1, vel_2
     alpha[0] += vel_0
@@ -267,7 +271,7 @@ def change_color(alpha):
         alpha[2] = 255
         vel_2 *= -1
 
-# main program begins
+# 主程序
 game_init()
 audio_init()
 play_sound(bgm)
@@ -286,12 +290,12 @@ alpha = [50, 50, 100, 255]
 # alpha_vel = -0.1
 load_level()
 
-# repeating loop
+# 主循环
 while True:
     timer.tick(30)
     ticks = pygame.time.get_ticks()
 
-    # handle events
+    # 处理事件
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -305,12 +309,12 @@ while True:
         #     if event.key == pygame.K_RETURN and game_over is False and waiting is True:
         #         goto_next_level()
 
-    # handle key presses
+    # 处理键盘事件
     keys = pygame.key.get_pressed()
     if keys[pygame.K_ESCAPE]:
             sys.exit()
 
-    # do update
+    # 更新画面
     if not game_over:
         update_block()
         move_paddle()
