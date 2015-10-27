@@ -30,21 +30,30 @@ class MySprite(pygame.sprite.Sprite):
         self.velocity = Point(0, 0)
 
     # X property
-    def _getx(self): return self.rect.x
+    def _getx(self):
+        return self.rect.x
 
-    def _setx(self, value): self.rect.x = value
+    def _setx(self, value):
+        self.rect.x = value
+
     X = property(_getx, _setx)
 
     # Y property
-    def _gety(self): return self.rect.y
+    def _gety(self):
+        return self.rect.y
 
-    def _sety(self, value): self.rect.y = value
+    def _sety(self, value):
+        self.rect.y = value
+
     Y = property(_gety, _sety)
 
     # position property
-    def _getpos(self): return self.rect.topleft
+    def _getpos(self):
+        return self.rect.topleft
 
-    def _setpos(self, pos): self.rect.topleft = pos
+    def _setpos(self, pos):
+        self.rect.topleft = pos
+
     position = property(_getpos, _setpos)
 
     def load(self, filename, width=0, height=0, columns=1):
@@ -84,10 +93,10 @@ class MySprite(pygame.sprite.Sprite):
             self.old_frame = self.frame
 
     def __str__(self):
-        return str(self.frame) + "," + str(self.first_frame) + "," +\
-            str(self.last_frame) + "," + str(self.frame_width) + "," +\
-            str(self.frame_height) + "," + str(self.columns) + "," +\
-            str(self.rect)
+        return str(self.frame) + "," + str(self.first_frame) + "," + \
+               str(self.last_frame) + "," + str(self.frame_width) + "," + \
+               str(self.frame_height) + "," + str(self.columns) + "," + \
+               str(self.rect)
 
 
 # Point class extends object
@@ -100,16 +109,19 @@ class Point(object):
     def getx(self): return self.__x
 
     def setx(self, value): self.__x = value
+
     x = property(getx, setx)
 
     # Y property
     def gety(self): return self.__y
 
     def sety(self, value): self.__y = value
+
     y = property(gety, sety)
 
     def __str__(self):
-        return "{X: " + "{:.0f}".format(self.__x) +\
-            ",Y:" + "{:.0f}".format(self.__y) + "}"
+        return "{X: " + "{:.0f}".format(self.__x) + \
+               ",Y:" + "{:.0f}".format(self.__y) + "}"
+
 
 __author__ = 'added new'
