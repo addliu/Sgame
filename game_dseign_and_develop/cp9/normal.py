@@ -4,7 +4,7 @@ import random
 import math
 import pygame
 from pygame.locals import *
-from MyLibrary import *
+from mylibrary import *
 
 levels = (
     (1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -268,66 +268,67 @@ def change_color(alpha):
         vel_2 *= -1
 
 # main program begins
-game_init()
-audio_init()
-play_sound(bgm)
-game_over = False
-waiting = True
-score = 0
-lives = 3
-level = 0
-vel_0 = 0.1
-vel_1 = 0.2
-vel_2 = 0.3
-alpha = [50, 50, 100, 255]
-# alpha_0 = 0.1
-# alpha_1 = 0.2
-# alpha_2 = 0.3
-# alpha_vel = -0.1
-load_level()
+def normal():
+    game_init()
+    audio_init()
+    play_sound(bgm)
+    game_over = False
+    waiting = True
+    score = 0
+    lives = 3
+    level = 0
+    vel_0 = 0.1
+    vel_1 = 0.2
+    vel_2 = 0.3
+    alpha = [50, 50, 100, 255]
+    # alpha_0 = 0.1
+    # alpha_1 = 0.2
+    # alpha_2 = 0.3
+    # alpha_vel = -0.1
+    load_level()
 
-# repeating loop
-while True:
-    timer.tick(30)
-    ticks = pygame.time.get_ticks()
+    # repeating loop
+    while True:
+        timer.tick(30)
+        ticks = pygame.time.get_ticks()
 
-    # handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        # handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.MOUSEMOTION:
+                movex, movey = event.rel
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if waiting:
+                    waiting = False
+                    reset_ball()
+            # elif event.type == pygame.KEYUP:
+            #     if event.key == pygame.K_RETURN and game_over is False and waiting is True:
+            #         goto_next_level()
+
+        # handle key presses
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
             sys.exit()
-        elif event.type == pygame.MOUSEMOTION:
-            movex, movey = event.rel
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if waiting:
-                waiting = False
-                reset_ball()
-        # elif event.type == pygame.KEYUP:
-        #     if event.key == pygame.K_RETURN and game_over is False and waiting is True:
-        #         goto_next_level()
 
-    # handle key presses
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_ESCAPE]:
-        sys.exit()
-
-    # do update
-    if not game_over:
-        update_block()
-        move_paddle()
-        move_ball()
-        collision_ball_paddle()
-        collision_ball_blocks()
-        change_color(alpha)
-    screen.fill((alpha[0], alpha[1], alpha[2], alpha[3]))
-    block_group.draw(screen)
-    ball_group.draw(screen)
-    paddle_group.draw(screen)
-    print_text(font, 0, 0, "SCORE: " + str(score))
-    print_text(font, 200, 0, "LEVEL: " + str(level + 1))
-    print_text(font, 400, 0, "BLOCKS: " + str(len(block_group)))
-    print_text(font, 670, 0, "BALLS: " + str(lives))
-    if game_over:
-        print_text(font, 300, 380, "G  A  M  E  O  V  E  R ")
-    pygame.display.update()
+        # do update
+        if not game_over:
+            update_block()
+            move_paddle()
+            move_ball()
+            collision_ball_paddle()
+            collision_ball_blocks()
+            change_color(alpha)
+        screen.fill((alpha[0], alpha[1], alpha[2], alpha[3]))
+        block_group.draw(screen)
+        ball_group.draw(screen)
+        paddle_group.draw(screen)
+        print_text(font, 0, 0, "SCORE: " + str(score))
+        print_text(font, 200, 0, "LEVEL: " + str(level + 1))
+        print_text(font, 400, 0, "BLOCKS: " + str(len(block_group)))
+        print_text(font, 670, 0, "BALLS: " + str(lives))
+        if game_over:
+            print_text(font, 300, 380, "G  A  M  E  O  V  E  R ")
+        pygame.display.update()
 
 __author__ = 'added new'
