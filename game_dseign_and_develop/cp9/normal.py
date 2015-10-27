@@ -100,16 +100,17 @@ def load_level():
 
 # 初始化游戏参数
 def game_init():
-    global screen, font, timer
+    global screen, font, timer, background
     global paddle_group, block_group, ball_group
     global paddle, block_image, block, ball
 
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((1000, 600))
     pygame.display.set_caption("Block Breaker Game")
     font = pygame.font.Font(None, 36)
     pygame.mouse.set_visible(False)
     timer = pygame.time.Clock()
+    background = pygame.image.load("image/space.png").convert_alpha()
 
     # 创建游戏精灵组
     paddle_group = pygame.sprite.Group()
@@ -323,6 +324,8 @@ while True:
         collision_ball_blocks()
         change_color(alpha)
     screen.fill((alpha[0], alpha[1], alpha[2], alpha[3]))
+    screen.blit(background, (0, 0))
+    pygame.draw.line(screen, (0, 0, 0), (800, 0), (800, 600), 2)
     block_group.draw(screen)
     ball_group.draw(screen)
     paddle_group.draw(screen)
