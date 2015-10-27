@@ -74,7 +74,7 @@ def update_block():
 # this function sets up the blocks for the levels
 def load_level():
     global level, block_image, block_group, levels, block
-    block_image = pygame.image.load(r"D:\9806-MorePython\resources\code\chap09\blocks.png").convert_alpha()
+    block_image = pygame.image.load(r"image/blocks.png").convert_alpha()
     block_group.empty()  # reset block group
     for bx in range(0, 12):
         for by in range(0, 10):
@@ -114,13 +114,13 @@ def game_init():
 
     # create the paddle sprite
     paddle = MySprite()
-    paddle.load(r"D:\9806-MorePython\resources\code\chap09\paddle.png")
+    paddle.load(r"image/paddle.png")
     paddle.position = 400, 540
     paddle_group.add(paddle)
 
     # create the ball sprite
     ball = MySprite()
-    ball.load(r"D:\9806-MorePython\resources\code\chap09\ball.png")
+    ball.load(r"image/ball.png")
     ball.position = 400, 300
     ball_group.add(ball)
 
@@ -230,9 +230,9 @@ def collision_ball_blocks():
 def audio_init():
     global coinflip, hit, bgm
     pygame.mixer.init()
-    coinflip = pygame.mixer.Sound(r"D:\9806-MorePython\resources\code\chap09\coinflip.wav")
-    hit = pygame.mixer.Sound(r"D:\9806-MorePython\resources\code\chap09\hit.wav")
-    bgm = pygame.mixer.Sound(r"D:\9806-MorePython\resources\code\chap09\flowerdance.ogg")
+    coinflip = pygame.mixer.Sound(r"auido/coinflip.wav")
+    hit = pygame.mixer.Sound(r"auido/hit.wav")
+    bgm = pygame.mixer.Sound(r"auido/flowerdance.ogg")
 
 
 # this function play the sound
@@ -301,9 +301,9 @@ while True:
             if waiting:
                 waiting = False
                 reset_ball()
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_RETURN and game_over is False and waiting is True:
-                goto_next_level()
+        # elif event.type == pygame.KEYUP:
+        #     if event.key == pygame.K_RETURN and game_over is False and waiting is True:
+        #         goto_next_level()
 
     # handle key presses
     keys = pygame.key.get_pressed()
