@@ -1,9 +1,5 @@
 # coding:utf8
-import sys
-import time
-import random
 import pygame
-import math
 from pygame.locals import *
 
 
