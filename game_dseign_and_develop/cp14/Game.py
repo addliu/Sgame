@@ -19,6 +19,7 @@ def game_init():
     font2 = pygame.font.Font(None, 14)
     timer = pygame.time.Clock()
 
+
 def Die(faces):
     roll = random.randint(1, faces)
     return roll
@@ -86,7 +87,7 @@ def playerCollision(stepx, stepy):
     elif char == 70:  # gold
         gold = random.randint(1, level)
         player.gold += gold
-        dungeon.setCharAt(player.x+stepx, player.y+stepy, TILE_ROOM)
+        dungeon.setCharAt(player.x + stepx, player.y + stepy, TILE_ROOM)
         message("You found " + str(gold) + "gold! ", yellow)
     elif char == 86:  # weapon
         weapon = random.randint(1, level + 2)
@@ -94,13 +95,20 @@ def playerCollision(stepx, stepy):
             temp = random.randint(0, 2)
         else:
             temp = random.randint(3, 6)
-        if temp == 0: name = "Dagger"
-        elif temp == 1: name = "Short Sword"
-        elif temp == 2: name = "Wooden Club"
-        elif temp == 3: name = "Long Sword"
-        elif temp == 4: name = "War Hammer"
-        elif temp == 5: name = "Battle Axe"
-        elif temp == 6: name = "Halberd"
+        if temp == 0:
+            name = "Dagger"
+        elif temp == 1:
+            name = "Short Sword"
+        elif temp == 2:
+            name = "Wooden Club"
+        elif temp == 3:
+            name = "Long Sword"
+        elif temp == 4:
+            name = "War Hammer"
+        elif temp == 5:
+            name = "Battle Axe"
+        elif temp == 6:
+            name = "Halberd"
         if weapon >= player.weapon:
             player.weapon = weapon
             player.weapon_name = name
@@ -116,14 +124,22 @@ def playerCollision(stepx, stepy):
             temp = random.randint(0, 2)
         else:
             temp = random.randint(3, 7)
-        if temp == 0: name = "Cloth"
-        elif temp == 1: name = "Patchwork"
-        elif temp == 2: name = "Leather"
-        elif temp == 3: name = "Chain"
-        elif temp == 4: name = "Scale"
-        elif temp == 5: name = "Plate"
-        elif temp == 6: name = "Mithril"
-        elif temp == 7: name = "Adamantium"
+        if temp == 0:
+            name = "Cloth"
+        elif temp == 1:
+            name = "Patchwork"
+        elif temp == 2:
+            name = "Leather"
+        elif temp == 3:
+            name = "Chain"
+        elif temp == 4:
+            name = "Scale"
+        elif temp == 5:
+            name = "Plate"
+        elif temp == 6:
+            name = "Mithril"
+        elif temp == 7:
+            name = "Adamantium"
         if armor >= player.armor:
             player.armor = armor
             player.armor_name = name
