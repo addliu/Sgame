@@ -34,6 +34,8 @@ _getpos(self): 获取精灵的位置值
 _setpos(self, pos): 设置精灵的位置值
 position: 设置， 获取精灵的位置值
 """
+
+
 class gameSprite(pygame.sprite.Sprite):
     # 初始化游戏参数
     def __init__(self):
@@ -92,17 +94,19 @@ class gameSprite(pygame.sprite.Sprite):
         surface.blit(self.image, (self.X, self.Y))
 
     def _getx(self):
-        return  self.rect.x
+        return self.rect.x
 
     def _setx(self, value):
         self.rect.x = value
+
     X = property(_getx, _setx)
 
     def _gety(self):
-        return  self.rect.y
+        return self.rect.y
 
     def _sety(self, value):
         self.rect.y = value
+
     Y = property(_gety, _sety)
 
     def _getpos(self):
@@ -110,7 +114,10 @@ class gameSprite(pygame.sprite.Sprite):
 
     def _setpos(self, pos):
         self.rect.topleft = pos
+
     position = property(_getpos, _setpos)
+
+
 """
 Point类：
 __init__(self): 初始化
@@ -122,6 +129,8 @@ _gety(self):获得ｙ
 _sety(self, value):设置ｙ
 y: 获得，　设置ｙ
 """
+
+
 class Point(object):
     def __init__(self):
         self.x = 0
@@ -129,27 +138,34 @@ class Point(object):
 
     def _setx(self, value):
         self.x = value
+
     def _getx(self):
         return self.x
+
     x = property(_getx, _setx)
 
     def _gety(self):
         return self.y
+
     def _sety(self, value):
         self.y = value
+
     y = property(_gety, _sety)
 
     def __str__(self):
         return "X: " + str(self.x) + ", Y: " + str(self.y)
 
+
 def warp_angle(angle):
     return angle % 360
+
 
 def angular_velocity(angle):
     vel = Point(0.0, 0.0)
     vel.x = math.cos(math.radians(warp_angle(angle)))
     vel.y = math.sin(math.radians(warp_angle(angle)))
     return vel
+
 
 def target_angle(x1, y1, x2, y2):
     delta_x = x2 - x1
@@ -158,7 +174,11 @@ def target_angle(x1, y1, x2, y2):
     angle_degrees = math.degrees(angle_radians)
     return angle_degrees
 
+
 def print_text(font, x, y, text, color=(255, 255, 255)):
-    text_image = font.render(text, True, color)
     screen = pygame.display.get_surface()
-    screen.blit(text_image, (x, y))
+    text_image = font.render(text, True, color)
+    font_rect = text_image.get_rect()
+    font_rect.centerx = screen.get_rect().centerx
+    font_rect.centery = y
+    screen.blit(text_image, font_rect)

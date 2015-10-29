@@ -11,11 +11,11 @@ HOME_BACKGROUND = r"res/image/space.png"
 MAIN_MENU_FLAG = False
 
 pygame.init()
-SCREEN = pygame.display.set_mode((800, 608))
+width, height = int(pygame.display.Info().current_w), int(pygame.display.Info().current_h)
+SCREEN = pygame.display.set_mode((width, height))
 pygame.display.set_caption(CAPTION)
-font1 = pygame.font.SysFont("Ubuntu Mono", 72, True)
-font2 = pygame.font.SysFont("Ubuntu Mono", 36, bold=True)
-
+big_font = pygame.font.SysFont("Ubuntu Mono", 72, True)
+font = pygame.font.SysFont("Ubuntu Mono", 36, bold=True)
 home_background = pygame.image.load(HOME_BACKGROUND).convert_alpha()
 
 while True:
@@ -30,9 +30,12 @@ while True:
         main_menu(SCREEN)
 
     else:
-        SCREEN.blit(home_background, (0, 0))
-        print_text(font1, 200, 158, "SPACE TRAVEL")
-        print_text(font2, 200, 300, "PRESS RETURN TO CONTINUE", (220, 20, 20))
+        for x in range(0, width / home_background.get_rect().width + 1):
+            for y in range(0, height / home_background.get_rect().height + 1):
+                SCREEN.blit(home_background, (x * home_background.get_rect().width,
+                                              y * home_background.get_rect().height))
+        print_text(big_font, 200, 158, "SPACE TRAVEL")
+        print_text(font, 200, 300, "PRESS RETURN TO CONTINUE", (220, 20, 20))
     pygame.display.update()
 
 __author__ = 'liuchuang'
