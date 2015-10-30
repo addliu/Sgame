@@ -56,7 +56,7 @@ class gameSprite(pygame.sprite.Sprite):
         # 上一帧的时间
         self.old_time = 0
         # 上一帧的帧图像
-        self.old_frame = 0
+        self.old_frame = -1
         # master_image 的列数
         self.columns = 1
 

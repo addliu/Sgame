@@ -25,7 +25,7 @@ import mylibrary
 from pygame.locals import *
 
 DUNGEON = 71
-EMPTY = 69
+EMPTY = 80
 STAIRS_DOWN = 0
 STAIRS_UP = 1
 CHEST_OFF = 0
@@ -163,15 +163,15 @@ class Dungeon(object):
         for x in range(0, 50):
             for y in range(0, 50):
                 sprite, image = self.get_image_at(x, y)[0], self.get_image_at(x, y)[1]
-                self.draw_image(x, y, surface, image)
+                self.draw_image(x, y, surface, sprite, image)
 
-    def draw_image(self, x, y, surface, image):
-        self.floor_sprite.X = x * self.floor_sprite.frame_width
-        self.floor_sprite.Y = y * self.floor_sprite.frame_height
-        self.floor_sprite.frame = image
-        self.floor_sprite.last_frame = image
-        self.floor_sprite.update(0)
-        self.floor_sprite.draw(surface)
+    def draw_image(self, x, y, surface, sprite, image):
+        sprite.X = x * sprite.frame_width
+        sprite.Y = y * sprite.frame_height
+        sprite.frame = image
+        sprite.last_frame = image
+        sprite.update(0)
+        sprite.draw(surface)
 
 
 def move_down(x, y):
