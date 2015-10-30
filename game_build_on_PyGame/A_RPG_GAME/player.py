@@ -1,12 +1,5 @@
 # coding:utf-8
 # Player/Monster classes
-import sys
-import time
-import random
-import math
-import pygame
-from pygame.locals import *
-from mylibrary import *
 from dungeon import *
 
 

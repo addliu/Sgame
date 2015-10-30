@@ -1,8 +1,5 @@
-import pygame
-import home
 import play_game
-from pygame.locals import *
-from mylibrary import *
+from game_build_on_PyGame.SPACE_TRAVEL_GAME.rpg.mylibrary import *
 
 
 def main_menu():

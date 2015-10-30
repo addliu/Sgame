@@ -1,14 +1,6 @@
 # coding:utf-8
 # class game
 # mods: print_text(), new SysFont
-import sys
-import time
-import random
-import math
-import pygame
-from pygame.locals import *
-from mylibrary import *
-from dungeon import *
 from player import *
 
 screen_width = 800

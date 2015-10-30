@@ -2,7 +2,7 @@
 import pygame
 import random
 import sys
-from .. import mylibrary
+import mylibrary
 from pygame.locals import *
 
 DUNGEON = 71
@@ -11,6 +11,9 @@ STAIRS_DOWN = 0
 STAIRS_UP = 1
 CHEST_OFF = 0
 CHEST_ON = 1
+floor_image = r"~/PythonRepository/game_build_on_PyGame/SPACE_TRAVEL_GAME/res/image/tileset3.png"
+stairs_image = r"~/PythonRepository/game_build_on_PyGame/SPACE_TRAVEL_GAME/res/image/stairs.png"
+chest_image = r"~/PythonRepository/game_build_on_PyGame/SPACE_TRAVEL_GAME/res/image/treasurechest.png"
 
 
 class Dungeon(object):
@@ -21,9 +24,9 @@ class Dungeon(object):
         self.stairs_sprite = mylibrary.gameSprite()
         # 创建宝箱精灵
         self.treasurechest_sprite = mylibrary.gameSprite()
-        self.floor_sprite.master_image = self.floor_sprite.load(r"..res\image\tileset3.png", 16, 16, 11)
-        self.stairs_sprite.master_image = self.stairs_sprite.load(r"..res\image\stairs.png", 16, 16, 2)
-        self.treasurechest_sprite.master_image = self.treasurechest_sprite.load(r"..res\image\treasurechest.png", 32, 32, 2)
+        self.floor_sprite.master_image = self.floor_sprite.load(floor_image, 16, 16, 11)
+        self.stairs_sprite.master_image = self.stairs_sprite.load(stairs_image, 16, 16, 2)
+        self.treasurechest_sprite.master_image = self.treasurechest_sprite.load(chest_image, 32, 32, 2)
         # 地下城目前只设一帧
         self.floor_sprite.frame = DUNGEON
         self.floor_sprite.first_frame = DUNGEON
