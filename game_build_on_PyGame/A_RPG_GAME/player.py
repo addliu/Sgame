@@ -56,7 +56,7 @@ class Player(object):
         self.health = self.max_health
 
     def draw(self, surface, image):
-        self.dungeon.draw_image(surface, self.sprite, self.x, self.y, image)
+        self.dungeon._draw_image(surface, self.sprite, self.x, self.y, image)
 
     # 移动玩家角色
     def move(self, movex, movey):
@@ -121,6 +121,6 @@ class Monster(Player):
         self.sprite.load(r"GAME_ARGUMENTS/robot.png", frame_width, frame_height, 12)
 
     def draw(self, surface, image):
-        self.dungeon.draw_image(surface, self.sprite, self.x, self.y, image)
+        self.dungeon._draw_image(surface, self.sprite, self.x, self.y, image)
 
 __author__ = 'liuchuang'

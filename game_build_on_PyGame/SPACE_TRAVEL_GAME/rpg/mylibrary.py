@@ -1,4 +1,3 @@
-# coding:utf8
 """
 mylibrary.py
 该文件主要为以后开发带来便利
@@ -11,6 +10,8 @@ angular_velocity(angle): 根据角度不同来设置速度大小和方向
 target_angle(x1, y1, x2, y2): 算出两点相对于原点之间的角度
 print_text(font, x, y, text, color): 将字体打印到屏幕上的相应位置
 """
+
+# coding:utf8
 import pygame
 import sys
 import time

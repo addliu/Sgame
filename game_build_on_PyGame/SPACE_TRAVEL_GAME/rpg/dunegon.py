@@ -26,12 +26,12 @@ from pygame.locals import *
 
 DUNGEON = 71
 EMPTY = 80
-STAIRS_DOWN = 0
-STAIRS_UP = 1
+STAIRS_DOWN = 3
+STAIRS_UP = 2
 CHEST_OFF = 0
 CHEST_ON = 1
 floor_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\image\tileset3.png"
-stairs_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\image\stairs.png"
+stairs_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\image\things.png"
 chest_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\image\treasurechest.png"
 
 """
@@ -46,7 +46,7 @@ _create_hall(self, x1, y1, x2, y2):用走廊将给定的两点连接起来
 set_image_at(self, x, y, image=DUNGEON):设置x，y处的地图信息
 get_image_at(self, x, y):获取x，y处的地图信息
 draw(self, surface):获取所有地图信息，通过调用draw_image()完成地图的绘制
-draw_image(self, x, y, surface, image):在surface上绘制地图
+_draw_image(self, x, y, surface, image):在surface上绘制地图
 """
 
 
@@ -98,7 +98,7 @@ class Dungeon(object):
         choice = random.randint(0, 2)
         self.create_hall(self.rooms[choice], self.rooms[choice + 3])
         self.create_hall(self.rooms[4], self.rooms[7])
-        # add
+        # 把房间信息加到self.tile列表中
         for room in self.rooms:
             for y in range(room.y, room.y + room.height):
                 for x in range(room.x, room.x + room.width):
@@ -106,6 +106,8 @@ class Dungeon(object):
         for chest in range(0, level + 1):
             choice = random.randint(0, 8)
             self.put_chest_in(self.rooms[choice])
+        self.put_next_floor(self.rooms[random.randint(0, 8)])
+        self.put_last_floor(self.rooms[random.randint(0, 8)])
 
     def create_hall(self, start_room, end_room):
         start_x, start_y = start_room.x + start_room.width // 2, start_room.y + start_room.height // 2
@@ -159,13 +161,29 @@ class Dungeon(object):
         else:
             self.put_chest_in(room)
 
+    def put_next_floor(self, room):
+        x = room.x + random.randint(0, room.width)
+        y = room.y + random.randint(0, room.height)
+        if self.get_image_at(x, y)[1] == DUNGEON:
+            self.set_image_at(x, y, self.stairs_sprite, STAIRS_DOWN)
+        else:
+            self.put_next_floor(room)
+
+    def put_last_floor(self, room):
+        x = room.x + random.randint(0, room.width)
+        y = room.y + random.randint(0, room.height)
+        if self.get_image_at(x, y)[1] == DUNGEON:
+            self.set_image_at(x, y, self.stairs_sprite, STAIRS_UP)
+        else:
+            self.put_last_floor(room)
+
     def draw(self, surface):
         for x in range(0, 50):
             for y in range(0, 50):
                 sprite, image = self.get_image_at(x, y)[0], self.get_image_at(x, y)[1]
-                self.draw_image(x, y, surface, sprite, image)
+                self._draw_image(x, y, surface, sprite, image)
 
-    def draw_image(self, x, y, surface, sprite, image):
+    def _draw_image(self, x, y, surface, sprite, image):
         sprite.X = x * sprite.frame_width
         sprite.Y = y * sprite.frame_height
         sprite.frame = image
