@@ -3,6 +3,7 @@ import pygame
 import random
 import sys
 import mylibrary
+import os
 from pygame.locals import *
 
 DUNGEON = 71
@@ -14,7 +15,6 @@ CHEST_ON = 1
 floor_image = r"~/PythonRepository/game_build_on_PyGame/SPACE_TRAVEL_GAME/res/image/tileset3.png"
 stairs_image = r"~/PythonRepository/game_build_on_PyGame/SPACE_TRAVEL_GAME/res/image/stairs.png"
 chest_image = r"~/PythonRepository/game_build_on_PyGame/SPACE_TRAVEL_GAME/res/image/treasurechest.png"
-
 
 class Dungeon(object):
     def __init__(self):

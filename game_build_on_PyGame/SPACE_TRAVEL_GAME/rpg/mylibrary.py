@@ -62,7 +62,7 @@ class gameSprite(pygame.sprite.Sprite):
 
     def load(self, filename, width, height, columns):
         # 设置精灵所有帧的位图
-        self.master_image = pygame.image.load(filename).covent_alpha()
+        self.master_image = pygame.image.load(filename).convert_alpha()
         # 当长宽都是１６时，将其改为３２
         if width != 32:
             temp_width, temp_height = self.master_image.get_size()
