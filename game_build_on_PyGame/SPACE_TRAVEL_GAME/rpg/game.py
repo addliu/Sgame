@@ -1,0 +1,47 @@
+from . import player
+from . import dungeon
+import pygame
+from pygame.locals import *
+import sys
+
+CAPTION = "SPACE TRAVEL"
+
+
+def rpg_start():
+    global screen
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600), pygame.HWSURFACE | pygame.DOUBLEBUF)
+    buffer = pygame.Surface((1600, 1600))
+    pygame.display.set_caption(CAPTION)
+    game_init()
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    sys.exit()
+                elif event.key == K_UP or event.key == K_w:
+                    player.move_up()
+                elif event.key == K_DOWN or event.key == K_s:
+                    player.move_down()
+                elif event.key == K_LEFT or event.key == K_a:
+                    player.move_left()
+                elif event.key == K_RIGHT or event.key == K_d:
+                    player.move_right()
+        _dungeon.draw(buffer)
+        _player.draw(buffer)
+        screen.fill((255, 255, 255))
+        screen.blit(buffer, (0, 0))
+        pygame.display.filp()
+
+
+def game_init():
+    global _player, _dungeon
+    _player = player.Player()
+    _dungeon = dungeon.dungeon()
+    _dungeon.create_dungeon()
+    _player.dun = _dungeon
+
+
+__author__ = 'added new'

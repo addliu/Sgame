@@ -1,9 +1,9 @@
 import pygame
+import game_build_on_PyGame.SPACE_TRAVEL_GAME.rpg.game
 from pygame.locals import *
 
+rpg_game = game_build_on_PyGame.SPACE_TRAVEL_GAME.rpg.game
 def play():
-    pygame.init()
-    SCREEN = pygame.display.set_mode((800, 600), pygame.HWSURFACE | pygame.DOUBLEBUF)
-    pygame.display.set_caption("SPACE TRAVEL")
+    rpg_game.rpg_start()
 
 __author__ = 'liuchuang'

@@ -1,6 +1,6 @@
 # coding:utf8
 """
-dunegon.py:自动生成地下城文件
+dungeon.py:自动生成地下城文件
 属性：
 DUNGEON: 地板图形所处的位置，用于绘制地板
 EMPTY: 空图像所处位置，用于绘制背景
@@ -34,23 +34,22 @@ floor_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\i
 stairs_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\image\things.png"
 chest_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\image\treasurechest.png"
 
-"""
-Dungeon类：主要功能是自动生成地下城
-该类一共有3个精灵对象，分别为：floor_sprite（地板）、stairs_sprite（楼梯）、treasurechest_sprite（宝箱）
-方法：
-__init__(self): 构造方法，用于初始化第地下城和精灵
-create_room(self, x, y): 在（x， y）处创建一个随机大小的房间
-create_dungeon(self, level=1):将完整的地图信息储存在一个tile列表中
-create_hall(self, start_room, end_room):获取两个房间的位置信息，用以创建走廊
-_create_hall(self, x1, y1, x2, y2):用走廊将给定的两点连接起来
-set_image_at(self, x, y, image=DUNGEON):设置x，y处的地图信息
-get_image_at(self, x, y):获取x，y处的地图信息
-draw(self, surface):获取所有地图信息，通过调用draw_image()完成地图的绘制
-_draw_image(self, x, y, surface, image):在surface上绘制地图
-"""
-
 
 class Dungeon(object):
+    """
+    Dungeon类：主要功能是自动生成地下城
+    该类一共有3个精灵对象，分别为：floor_sprite（地板）、stairs_sprite（楼梯）、treasurechest_sprite（宝箱）
+    方法：
+    __init__(self): 构造方法，用于初始化第地下城和精灵
+    create_room(self, x, y): 在（x， y）处创建一个随机大小的房间
+    create_dungeon(self, level=1):将完整的地图信息储存在一个tile列表中
+    create_hall(self, start_room, end_room):获取两个房间的位置信息，用以创建走廊
+    _create_hall(self, x1, y1, x2, y2):用走廊将给定的两点连接起来
+    set_image_at(self, x, y, image=DUNGEON):设置x，y处的地图信息
+    get_image_at(self, x, y):获取x，y处的地图信息
+    draw(self, surface):获取所有地图信息，通过调用draw_image()完成地图的绘制
+    _draw_image(self, x, y, surface, image):在surface上绘制地图
+    """
     def __init__(self):
         # 创建地板精灵
         self.floor_sprite = mylibrary.gameSprite()
@@ -60,7 +59,7 @@ class Dungeon(object):
         self.treasurechest_sprite = mylibrary.gameSprite()
 
         self.floor_sprite.load(floor_image, 16, 16, 11)
-        self.stairs_sprite.load(stairs_image, 16, 16, 2)
+        self.stairs_sprite.load(stairs_image, 32, 32, 4)
         self.treasurechest_sprite.load(chest_image, 32, 32, 2)
         # 地下城目前只设一帧
         self.floor_sprite.frame = DUNGEON
@@ -216,30 +215,30 @@ def move_left(x, y):
     return x, y
 
 
-pygame.init()
-SCREEN = pygame.display.set_mode((800, 600), pygame.HWSURFACE | pygame.DOUBLEBUF)
-buffer = pygame.Surface((1600, 1600))
-pygame.display.set_caption("DUNGEON DEMO")
-
-dun = Dungeon()
-dun.create_dungeon()
-x = y = 0
-while True:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            sys.exit()
-        elif event.type == KEYDOWN:
-            if event.key == K_UP:
-                x, y = move_up(x, y)
-            elif event.key == K_DOWN:
-                x, y = move_down(x, y)
-            elif event.key == K_LEFT:
-                x, y = move_left(x, y)
-            elif event.key == K_RIGHT:
-                x, y = move_right(x, y)
-    dun.draw(buffer)
-    SCREEN.fill((20, 20, 220))
-    SCREEN.blit(buffer, (x, y))
-    pygame.display.flip()
+# pygame.init()
+# SCREEN = pygame.display.set_mode((800, 600), pygame.HWSURFACE | pygame.DOUBLEBUF)
+# buffer = pygame.Surface((1600, 1600))
+# pygame.display.set_caption("DUNGEON DEMO")
+#
+# dun = Dungeon()
+# dun.create_dungeon()
+# x = y = 0
+# while True:
+#     for event in pygame.event.get():
+#         if event.type == QUIT:
+#             sys.exit()
+#         elif event.type == KEYDOWN:
+#             if event.key == K_UP:
+#                 x, y = move_up(x, y)
+#             elif event.key == K_DOWN:
+#                 x, y = move_down(x, y)
+#             elif event.key == K_LEFT:
+#                 x, y = move_left(x, y)
+#             elif event.key == K_RIGHT:
+#                 x, y = move_right(x, y)
+#     dun.draw(buffer)
+#     SCREEN.fill((20, 20, 220))
+#     SCREEN.blit(buffer, (x, y))
+#     pygame.display.flip()
 
 __author__ = 'liuchuang'
