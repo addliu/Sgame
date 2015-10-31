@@ -1,3 +1,9 @@
+"""
+player.py：将玩家加入到地下城中
+属性：
+player_image：玩家素材图像的绝对路径
+Player类：生成玩家
+"""
 # coding:utf8
 import mylibrary
 import dungeon
@@ -9,8 +15,23 @@ player_image = r"D:\PythonRepository\game_build_on_PyGame\SPACE_TRAVEL_GAME\res\
 
 
 class Player(mylibrary.gameSprite):
+    """
+    Player类：
+    方法：
+    __init__(self, dungeon):初始化Player
+    put_player_at(self, room):将玩家放在地下城的一个房间里
+    move(self):朝给定方向移动玩家
+    move_up(self):把移动方向设置为向上，设置人物帧图像
+    move_down(self):把移动方向设置为向下，设置人物帧图像
+    move_left(self):把移动方向设置为向左，设置人物帧图像
+    move_right(self):把移动方向设置为向右，设置人物帧图像
+    get_next(self):获得当前方向下一个位置的图像
+    make_action(self, pos):根据下一个位置的图像，来让玩家完成特定动作
+    open_the_chest(self):完成打开宝箱动作
+    """
     def __init__(self, dungeon):
         mylibrary.gameSprite.__init__(self)
+        # 获取正在使用的地下城
         self.dungeon = dungeon
         self.direction = mylibrary.Point(0, -1)
         self.vel = mylibrary.Point(0, -1)
