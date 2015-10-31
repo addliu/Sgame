@@ -135,25 +135,25 @@ y: 获得，　设置ｙ
 
 
 class Point(object):
-    def __init__(self):
-        self.x = 0
-        self.y = 0
+    def __init__(self, x, y):
+        self.__x = x
+        self.__y = y
 
-    def _setx(self, value):
-        self.x = value
+    def setx(self, value):
+        self.__x = value
 
-    def _getx(self):
-        return self.x
+    def getx(self):
+        return self.__x
 
-    x = property(_getx, _setx)
+    x = property(getx, setx)
 
-    def _gety(self):
-        return self.y
+    def gety(self):
+        return self.__y
 
-    def _sety(self, value):
-        self.y = value
+    def sety(self, value):
+        self.__y = value
 
-    y = property(_gety, _sety)
+    y = property(gety, sety)
 
     def __str__(self):
         return "X: " + str(self.x) + ", Y: " + str(self.y)
