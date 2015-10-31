@@ -1,10 +1,18 @@
-from . import player
-from . import dungeon
+import player
+import dungeon
 import pygame
 from pygame.locals import *
 import sys
 
 CAPTION = "SPACE TRAVEL"
+
+
+def game_init():
+    global _player, _dungeon
+    _player = player.Player()
+    _dungeon = dungeon.Dungeon()
+    _dungeon.create_dungeon()
+    _player.dun = _dungeon
 
 
 def rpg_start():
@@ -30,18 +38,9 @@ def rpg_start():
                 elif event.key == K_RIGHT or event.key == K_d:
                     player.move_right()
         _dungeon.draw(buffer)
-        _player.draw(buffer)
+        # _player.draw(buffer)
         screen.fill((255, 255, 255))
         screen.blit(buffer, (0, 0))
-        pygame.display.filp()
-
-
-def game_init():
-    global _player, _dungeon
-    _player = player.Player()
-    _dungeon = dungeon.dungeon()
-    _dungeon.create_dungeon()
-    _player.dun = _dungeon
-
+        pygame.display.flip()
 
 __author__ = 'added new'

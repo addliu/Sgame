@@ -13,10 +13,7 @@ print_text(font, x, y, text, color): 将字体打印到屏幕上的相应位置
 
 # coding:utf8
 import pygame
-import sys
-import time
 import math
-import random
 from pygame.locals import *
 
 """
