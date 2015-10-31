@@ -16,7 +16,9 @@ class Player(mylibrary.gameSprite):
         self.vel = mylibrary.Point(0, -1)
         self.load(player_image, 32, 32, 4)
         self.put_player_at(self.dungeon.rooms[0])
-        self.update(60)
+        self.gold = 100
+        self.attack = 5
+        self.defence = 5
 
     def put_player_at(self, room):
         self.X = room.x + random.randint(0, room.width - 1)
@@ -91,7 +93,7 @@ class Player(mylibrary.gameSprite):
 
     def make_action(self, pos):
         if pos[0] == self.dungeon.treasurechest_sprite:
-            if pos[1] == self.dun.CHEST_OFF:
+            if pos[1] == 0:
                 self.open_the_chest()
 
     def open_the_chest(self):
